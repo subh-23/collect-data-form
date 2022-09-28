@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const MONGO_URI = 'mongodb://localhost:27017/your-database-name';
 const PORT = 3000;
-const User = require('./model/userSchema');
 
 //database connection
 mongoose.connect(MONGO_URI, {
@@ -16,6 +15,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+//routes
 app.use('/', require('./routes/index'));
 
 //server
