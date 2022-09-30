@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/userSchema');
-const generateXlsx = require('../generateCSV');
+const generateXlsx = require('../generateXlsx');
 
 //render main Employee form
 router.get('/', (req, res) => {
@@ -58,7 +58,7 @@ router.get('/error', (req, res) => {
 router.get('/generate-xlsx', async (req, res) => {
     try {
         generateXlsx();
-        res.status(200).send('Excel file generated successfully');
+        res.status(200).send('Excel file generated successfully, check your folder');
     } catch (error) {
         res.startus(500).redirect('/error');
     }
