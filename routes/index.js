@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/userSchema');
+const generateXlsx = require('../generateCSV');
 
+//render main Employee form
 router.get('/', (req, res) => {
     try {
         res.status(201).render('index');
@@ -50,7 +52,20 @@ router.get('/thank-you', (req, res) => {
 });
 //error page
 router.get('/error', (req, res) => {
-    res.status(500).render('error');
+    res.status(404).render('error');
 })
+//generating xlsx file
+router.get('/generate-xlsx', async (req, res) => {
+    try {
+        generateXlsx();
+        res.status(200).send('Excel file generated successfully');
+    } catch (error) {
+        res.startus(500).redirect('/error');
+    }
+});
+//apart from the above routes, all other routes will be redirected to error page
+router.get('/:anything', (req, res) => {
+    res.status(404).redirect('/error');
+});
 
 module.exports = router;
